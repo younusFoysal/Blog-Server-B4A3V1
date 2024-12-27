@@ -23,7 +23,7 @@ const createBlog = catchAsync(async (req, res) => {
   }
 
   const newBlog = { ...blogData, author: authorId._id }
-  console.log(newBlog)
+  //console.log(newBlog)
   const result = await blogServices.createBlogIntoDB(newBlog);
 
   sendResponse(res, {
@@ -56,7 +56,7 @@ const deleteBlog = catchAsync(async (req, res) => {
   const id = req.params.id;
   const userEmail = req.user.userEmail;
 
-  const deletedBlog = await blogServices.deleteBlogIntoDB( userEmail, id );
+  await blogServices.deleteBlogIntoDB( userEmail, id );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -69,7 +69,7 @@ const deleteBlog = catchAsync(async (req, res) => {
 
 
 const getAllBlogs = catchAsync(async (req, res) => {
-  console.log('Received Query:', req.query);
+  //console.log('Received Query:', req.query);
   const queryBuilder = new QueryBuilder(BlogModel.find(), req.query);
 
   const blogs = await queryBuilder

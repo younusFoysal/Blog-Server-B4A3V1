@@ -27,7 +27,7 @@ class QueryBuilder<T> {
   filter() {
     const queryObj = { ...this.query };
 
-    console.log(queryObj);
+    //console.log(queryObj);
 
     // Filtering
     const excludeFields = ['search', 'sortBy', 'sortOrder', 'limit', 'page', 'fields', 'filter'];

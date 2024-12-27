@@ -6,7 +6,7 @@ import { AdminServices } from './admin.service';
 
 const blockUser = catchAsync(async (req, res) => {
   const { userId } = req.params;
-  const result = await AdminServices.blockUserIntoDB(userId);
+  await AdminServices.blockUserIntoDB(userId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -17,7 +17,7 @@ const blockUser = catchAsync(async (req, res) => {
 
 const deleteBlog= catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await AdminServices.deleteBlogIntoDB(id);
+  await AdminServices.deleteBlogIntoDB(id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
