@@ -18,6 +18,7 @@ const userSchema = new Schema<TUser, UserModel>(
     password: {
       type: String,
       required: true,
+      select: 0,
     },
     role: {
       type: String,
@@ -30,7 +31,7 @@ const userSchema = new Schema<TUser, UserModel>(
     },
   },
   {
-    timestamps: true, versionKey: false
+    timestamps: false, versionKey: false
   },
 );
 
@@ -55,7 +56,7 @@ userSchema.post('save', function (doc, next) {
 });
 
 userSchema.statics.isUserExistsByCustomId = async function (email: string) {
-  return await User.findOne({ email });
+  return await User.findOne({ email }).select('+password');
 };
 
 userSchema.statics.isPasswordMatched = async function (
@@ -64,6 +65,16 @@ userSchema.statics.isPasswordMatched = async function (
 ) {
   return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
+
+userSchema.set('toJSON', {
+  transform: (doc, rec) => {
+    delete rec.password;
+    delete rec.role;
+    delete rec.isBlocked;
+
+    return rec;
+  }
+})
 
 
 export const User = model<TUser, UserModel>('User', userSchema);

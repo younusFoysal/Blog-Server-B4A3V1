@@ -18,4 +18,14 @@ const BlogSchema = new Schema<Tblog>({
 
 }, {timestamps: true, versionKey: false})
 
+
+BlogSchema.set('toJSON', {
+  transform: (doc, rec) => {
+    delete rec.createdAt;
+    delete rec.updatedAt;
+    return rec;
+  }
+})
+
+
 export const BlogModel = model<Tblog>('Blog', BlogSchema);
