@@ -4,6 +4,7 @@ import { Schema, model } from 'mongoose';
 import config from '../../config';
 import { TUser, UserModel } from './user.interface';
 // @ts-ignore
+
 const userSchema = new Schema<TUser, UserModel>(
   {
     name: {
